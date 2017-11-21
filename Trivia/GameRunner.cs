@@ -14,25 +14,17 @@ namespace Trivia
 
         public static void Main(String[] args)
         {
-            PlayGame(null);
+            PlayGame(new Random());
         }
 
-        public static void PlayGame(int? randomSeed)
+        public static void PlayGame(Random rand)
         {
             Game aGame = new Game();
 
             aGame.add("Chet");
             aGame.add("Pat");
             aGame.add("Sue");
-            Random rand;
-            if (randomSeed.HasValue)
-            {
-                rand = new Random(randomSeed.Value);
-            }
-            else
-            {
-                rand = new Random();
-            }
+            
 
             do
             {
