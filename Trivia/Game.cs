@@ -33,11 +33,6 @@ namespace UglyTrivia
             }
         }
 
-        public bool IsPlayable()
-        {
-            return HowManyPlayers() >= 2;
-        }
-
         public bool Add(string playerName)
         {
 
