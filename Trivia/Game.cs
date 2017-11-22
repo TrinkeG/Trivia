@@ -1,7 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Media;
 using System.Text;
+using Trivia;
 
 namespace UglyTrivia
 {
@@ -33,10 +35,13 @@ namespace UglyTrivia
             }
         }
 
-        public bool Add(string playerName)
+        public virtual bool Add(Player player)
         {
+            return Add(player.Name);
+        }
 
-
+        public virtual bool Add(string playerName)
+        {
             _players.Add(playerName);
             _places[HowManyPlayers()] = 0;
             _purses[HowManyPlayers()] = 0;
@@ -52,7 +57,7 @@ namespace UglyTrivia
             return _players.Count;
         }
 
-        public void Roll(int roll)
+        public virtual void Roll(int roll)
         {
             Console.WriteLine(_players[_currentPlayer] + " is the current player");
             Console.WriteLine("They have rolled a " + roll);
@@ -138,7 +143,7 @@ namespace UglyTrivia
             return "Rock";
         }
 
-        public bool WasCorrectlyAnswered()
+        public virtual bool WasCorrectlyAnswered()
         {
             if (_inPenaltyBox[_currentPlayer])
             {

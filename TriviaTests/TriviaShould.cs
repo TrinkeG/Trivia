@@ -35,7 +35,7 @@ namespace TriviaTests
             using (var writer = new StringWriter())
             {
                 Console.SetOut(writer);
-                GameRunner.PlayGame(new Random(seedValue));
+                new GameRunner().PlayGame(new Random(seedValue));
                 actual = writer.ToString();
             }
 
@@ -52,7 +52,7 @@ namespace TriviaTests
                     using (StreamWriter writer = new StreamWriter(fs))
                     {
                         Console.SetOut(writer);
-                        GameRunner.PlayGame(new Random(testInt));
+                        new GameRunner().PlayGame(new Random(testInt));
 
                     }
                 }
