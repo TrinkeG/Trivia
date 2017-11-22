@@ -64,8 +64,7 @@ namespace UglyTrivia
                     _isGettingOutOfPenaltyBox = true;
 
                     Console.WriteLine(_players[_currentPlayer] + " is getting out of the penalty box");
-                    _places[_currentPlayer] = _places[_currentPlayer] + roll;
-                    if (_places[_currentPlayer] > 11) _places[_currentPlayer] = _places[_currentPlayer] - 12;
+                    MovePlayer(roll);
 
                     Console.WriteLine(_players[_currentPlayer]
                             + "'s new location is "
@@ -83,8 +82,7 @@ namespace UglyTrivia
             else
             {
 
-                _places[_currentPlayer] = _places[_currentPlayer] + roll;
-                if (_places[_currentPlayer] > 11) _places[_currentPlayer] = _places[_currentPlayer] - 12;
+               MovePlayer(roll);
 
                 Console.WriteLine(_players[_currentPlayer]
                         + "'s new location is "
@@ -93,6 +91,12 @@ namespace UglyTrivia
                 AskQuestion();
             }
 
+        }
+
+        private void MovePlayer(int roll)
+        {
+            _places[_currentPlayer] = _places[_currentPlayer] + roll;
+            if (_places[_currentPlayer] > 11) _places[_currentPlayer] = _places[_currentPlayer] - 12;
         }
 
         private void AskQuestion()
@@ -141,13 +145,9 @@ namespace UglyTrivia
                 if (_isGettingOutOfPenaltyBox)
                 {
                     Console.WriteLine("Answer was correct!!!!");
-                    _purses[_currentPlayer]++;
-                    Console.WriteLine(_players[_currentPlayer]
-                            + " now has "
-                            + _purses[_currentPlayer]
-                            + " Gold Coins.");
+                    AddAGoldCoin();
 
-                    var winner = DidPlayerWin();
+                    var winner = PlayerDidNotWin();
                     _currentPlayer++;
                     if (_currentPlayer == _players.Count) _currentPlayer = 0;
 
@@ -167,18 +167,23 @@ namespace UglyTrivia
             {
 
                 Console.WriteLine("Answer was corrent!!!!");
-                _purses[_currentPlayer]++;
-                Console.WriteLine(_players[_currentPlayer]
-                        + " now has "
-                        + _purses[_currentPlayer]
-                        + " Gold Coins.");
+                AddAGoldCoin();
 
-                var winner = DidPlayerWin();
+                var winner = PlayerDidNotWin();
                 _currentPlayer++;
                 if (_currentPlayer == _players.Count) _currentPlayer = 0;
 
                 return winner;
             }
+        }
+
+        private void AddAGoldCoin()
+        {
+            _purses[_currentPlayer]++;
+            Console.WriteLine(_players[_currentPlayer]
+                              + " now has "
+                              + _purses[_currentPlayer]
+                              + " Gold Coins.");
         }
 
         public bool WrongAnswer()
@@ -193,9 +198,9 @@ namespace UglyTrivia
         }
 
 
-        private bool DidPlayerWin()
+        private bool PlayerDidNotWin()
         {
-            return !(_purses[_currentPlayer] == 6);
+            return _purses[_currentPlayer] != 6;
         }
     }
 
